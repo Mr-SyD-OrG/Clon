@@ -14,7 +14,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 
 #===================Run Function===================#
 
-@Client.on_message(filters.private & filters.command(["forward"]))
+@Client.on_message(filters.private & filters.command(["clone"]))
 async def run(bot, message):
     if AUTH_CHANNEL and not await is_req_subscribed(bot, message):
         try:
@@ -43,9 +43,6 @@ async def run(bot, message):
     buttons = []
     btn_data = {}
     user_id = message.from_user.id
-    _bot = await db.get_bot(user_id)
-    if not _bot:
-      return await message.reply("Yᴏᴜ didn't added any bot. Please add a bot using /settings !</code>")
     channels = await db.get_user_channels(user_id)
     if not channels:
        return await message.reply_text("please set a to channel in /settings before forwarding")
